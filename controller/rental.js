@@ -1,7 +1,30 @@
 const connection = require("../db/mysql_connection");
 const moment = require("moment");
 
-// @desc     책한권을 대여하는 api
+// @desc     모든 책 목록 불러오기 API
+// @route   GET /api/v1/search?offset=0&limit=25
+// @request
+// @response    success, rows[]
+exports.getBook = async (req, res, next) => {
+  let offset = req.query.offset;
+  let limit = req.query.limit;
+
+  if (limit > 100) {
+    res.status(400).json();
+    return;
+  }
+
+  let query = `select * from book limit ${offset},${limit}`;
+  console.log(query);
+  try {
+    [rows] = await connection.query(query);
+    res.status(200).json({ success: true, rows: rows });
+  } catch (e) {
+    res.status(500).json({ success: false, e });
+  }
+};
+
+// @desc     책 한권 대여 API
 // @route   POST /api/v1/rental
 // @request id(auth), age(auth), book_id
 // @response    success
@@ -64,7 +87,7 @@ exports.getMyRental = async (req, res, next) => {
   }
 };
 
-// @desc     책한권을 반납하는 api
+// @desc     책 한권 반납 API
 // @route   DELETE /api/v1/rental
 // @request id(auth),book_id
 // @response    success
