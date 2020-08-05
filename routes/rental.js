@@ -15,6 +15,6 @@ router
   .post(auth, bookRental)
   .get(auth, getMyRental)
   .delete(auth, deleteRental);
-router.route("/all").get(getBook);
+router.route("/all").get(auth, getBook);
 
 module.exports = router;
