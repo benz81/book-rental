@@ -20,9 +20,12 @@
   "homepage": "https://github.com/benz81/book-rental#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "chalk": "^4.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
+    "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
     "validator": "^13.1.1"
   },
