@@ -7,7 +7,7 @@ const auth = async (req, res, next) => {
     token = req.header("Authorization");
     token = token.replace("Bearer ", "");
   } catch (e) {
-    res.status(401).json({ error: e, message: "hi2" });
+    res.status(401).json({ error: e, message: "auth 에러" });
     return;
   }
 
@@ -27,7 +27,7 @@ const auth = async (req, res, next) => {
   try {
     [rows] = await connection.query(query);
     if (rows.length == 0) {
-      res.status(401).json({ message: "hi" });
+      res.status(401).json({ message: "auth" });
       return;
     } else {
       req.user = rows[0];
@@ -35,6 +35,7 @@ const auth = async (req, res, next) => {
     }
   } catch (e) {
     res.status(500).json();
+    return;
   }
 };
 
